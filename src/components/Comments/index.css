@@ -1,0 +1,13 @@
+/* Write your CSS here */
+.comments-container {
+  padding: 20px;
+  background-color: #f5f5f5;
+}
+
+.comment-item {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  border-bottom: 1px solid #ccc;
+}
