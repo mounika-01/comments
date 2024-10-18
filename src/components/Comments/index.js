@@ -1,5 +1,6 @@
-import React, { Component } from 'react'
+import React, {Component} from 'react'
 import CommentItem from './CommentItem'
+
 import './index.css'
 
 class CommentsApp extends Component {
@@ -10,16 +11,16 @@ class CommentsApp extends Component {
   }
 
   handleNameChange = event => {
-    this.setState({ name: event.target.value })
+    this.setState({name: event.target.value})
   }
 
   handleCommentChange = event => {
-    this.setState({ comment: event.target.value })
+    this.setState({comment: event.target.value})
   }
 
   addComment = event => {
     event.preventDefault()
-    const { name, comment, commentsList } = this.state
+    const {name, comment, commentsList} = this.state
 
     if (name && comment) {
       const newComment = {
@@ -32,42 +33,47 @@ class CommentsApp extends Component {
 
       this.setState({
         commentsList: [...commentsList, newComment],
-        name: '',
-        comment: '',
+        name: '', // Clear name input after submission
+        comment: '', // Clear comment textarea after submission
       })
     }
   }
 
   toggleLike = id => {
-    const { commentsList } = this.state
+    const {commentsList} = this.state
     const updatedCommentsList = commentsList.map(comment =>
-      comment.id === id ? { ...comment, isLiked: !comment.isLiked } : comment
+      comment.id === id ? {...comment, isLiked: !comment.isLiked} : comment,
     )
 
-    this.setState({ commentsList: updatedCommentsList })
+    this.setState({commentsList: updatedCommentsList})
   }
 
   deleteComment = id => {
-    const { commentsList } = this.state
-    const filteredCommentsList = commentsList.filter(comment => comment.id !== id)
-    
-    this.setState({ commentsList: filteredCommentsList })
+    const {commentsList} = this.state
+    const filteredCommentsList = commentsList.filter(
+      comment => comment.id !== id,
+    )
+
+    this.setState({commentsList: filteredCommentsList})
   }
 
   render() {
-    const { name, comment, commentsList } = this.state
+    const {name, comment, commentsList} = this.state
 
     return (
       <div className="comments-app">
         <h1>Comments</h1>
-        
+
         {/* Image for comments section */}
         <img
-          src="https://example.com/comments-image-url"  // Replace with the correct URL
+          src="https://example.com/comments-image-url" // Replace with the correct URL
           alt="comments"
         />
 
         <p>Say Something...</p>
+
+        <p>Comments Count: {commentsList.length}</p>
+
         <form onSubmit={this.addComment}>
           <input
             type="text"
@@ -85,12 +91,14 @@ class CommentsApp extends Component {
 
         <ul>
           {commentsList.map(commentItem => (
-            <CommentItem
-              key={commentItem.id}
-              commentDetails={commentItem}
-              toggleLike={this.toggleLike}
-              deleteComment={this.deleteComment}
-            />
+            <li key={commentItem.id}>
+              <CommentItem
+                key={commentItem.id}
+                commentDetails={commentItem}
+                toggleLike={this.toggleLike}
+                deleteComment={this.deleteComment}
+              />
+            </li>
           ))}
         </ul>
       </div>
